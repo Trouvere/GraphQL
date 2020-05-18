@@ -3,9 +3,12 @@
 # dependencies
 /node_modules
 /server/node_modules
-
+/application/node_modules
 
 !!!MY
 ReadforMe.txt
 
 README.md
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
