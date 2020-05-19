@@ -2,6 +2,7 @@ const express = require("express");
 const graphqlHTTP = require("express-graphql");
 const schema = require("../schema/schema");
 const mongoose = require("mongoose");
+const cors = require("cors");
 
 const app = express();
 const PORT = 3005;
@@ -10,6 +11,8 @@ const PORT = 3005;
 var mongoDB =
   "mongodb+srv://Trouvere:inHaos666@cluster0-zfyme.mongodb.net/graphql-tutorial?retryWrites=true&w=majority"; //замените url!!!
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
+
+app.use(cors());
 
 app.use(
   "/graphql",
