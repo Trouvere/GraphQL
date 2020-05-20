@@ -14,7 +14,12 @@ const withGraphQL = compose(
       addMovie: (movie) =>
         mutate({
           variables: movie,
-          refetchQueries: [{ query: moviesQuery }],
+          refetchQueries: [
+            {
+              query: moviesQuery,
+              variables: { name: "" },
+            },
+          ],
         }),
     }),
   }),
@@ -23,14 +28,20 @@ const withGraphQL = compose(
       updateMovie: (movie) =>
         mutate({
           variables: movie,
-          refetchQueries: [{ query: moviesQuery }],
+          refetchQueries: [
+            {
+              query: moviesQuery,
+              variables: { name: "" },
+            },
+          ],
         }),
+    }),
+  }),
+  graphql(directorsQuery, {
+    options: ({ name = "" }) => ({
+      variables: { name },
     }),
   })
 );
 
-export default compose(
-  withStyles(styles),
-  withGraphQL,
-  graphql(directorsQuery)
-);
+export default compose(withStyles(styles), withGraphQL);

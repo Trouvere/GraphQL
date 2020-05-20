@@ -14,29 +14,6 @@ const {
 const Movies = require("../models/movie");
 const Directors = require("../models/director");
 
-/*
-// All IDs set automatically by mLab
-// Don't forget to update after creation
-const directorsJson = [
-  { "name": "Quentin Tarantino", "age": 55 }, // 5ec03355bd04d04e300ff021
-  { "name": "Michael Radford", "age": 72 }, // 5ec12fa572b07cb58afd636e
-  { "name": "James McTeigue", "age": 51 }, // 5ec1314b72b07cb58afd636f
-  { "name": "Guy Ritchie", "age": 50 }, // 5ec131ca72b07cb58afd6370
-];
-// directorId - it is ID from the directors collection
-const moviesJson = [
-  { "name": "Pulp Fiction", "genre": "Crime", "directorId": "5ec03355bd04d04e300ff021" },
-  { "name": "1984", "genre": "Sci-Fi", "directorId": "5ec12fa572b07cb58afd636e" },
-  { "name": "V for vendetta", "genre": "Sci-Fi-Triller", "directorId": "5ec1314b72b07cb58afd636f" },
-  { "name": "Snatch", "genre": "Crime-Comedy", "directorId": "5ec131ca72b07cb58afd6370" },
-  { "name": "Reservoir Dogs", "genre": "Crime", "directorId": "5ec03355bd04d04e300ff021" },
-  { "name": "The Hateful Eight", "genre": "Crime", "directorId": "5ec03355bd04d04e300ff021" },
-  { "name": "Inglourious Basterds", "genre": "Crime", "directorId": "5ec03355bd04d04e300ff021" },
-  { "name": "Lock, Stock and Two Smoking Barrels", "genre": "Crime-Comedy", "directorId": "5ec131ca72b07cb58afd6370" },
-];
-
-*/
-
 const MovieType = new GraphQLObjectType({
   name: "Movie",
   fields: () => ({
@@ -182,17 +159,11 @@ const Query = new GraphQLObjectType({
     },
     directors: {
       type: new GraphQLList(DirectorType),
-      resolve() {
-        return Directors.find({});
+      args: { name: { type: GraphQLString } },
+      resolve(parent, { name }) {
+        return Directors.find({ name: { $regex: name, $options: "i" } });
       },
     },
-    // directors: {
-    //   type: new GraphQLList(DirectorType),
-    //   args: { name: { type: GraphQLString } },
-    //   resolve(parent, { name }) {
-    //     return Directors.find({ name: { $regex: name, $options: "i" } });
-    //   },
-    // },
   },
 });
 

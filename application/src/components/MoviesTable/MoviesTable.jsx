@@ -70,7 +70,7 @@ class MoviesTable extends React.Component {
   };
 
   render() {
-    const { anchorEl, openDialog, data: activeElem = {} } = this.state;
+    const { anchorEl, openDialog, data: activeElem = {}, name } = this.state;
 
     const { classes, data = {} } = this.props;
 
